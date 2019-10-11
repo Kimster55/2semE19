@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <title>Weather</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: sans serif;
+      background: #5f6ea2;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Openweathermap Sample</h1>
+
+  <!-- the weather will appear below -->
+  <div id="result"></div>
+
+  <script>
+  /*
+  URL
+  don't use samples:
+  https://samples.openweathermap.org/data/2.5/weather?q=Aarhus,DK&appid=YOURTOKENHERE
+  // use api as below:
+  https://api.openweathermap.org/data/2.5/weather?q=Aarhus,DK&appid=YOURTOKENHERE
+  */
+    let aarhus = "https://api.openweathermap.org/data/2.5/weather?q=Aarhus,DK&appid=201d090c9cceacfc8931df89310ebfbb&units=metric";
+    $(document).ready(function() {
+    // get the weather data
+    fetch(aarhus).then(response => {
+      return response.json();
+    }).then(data => {
+      // Work with JSON data here
+      console.log(data); // show what's in the json
+      $('#result').append('<div class="weatherInfo">' + data.weather[0].main +
+        ' in ' + data.name +
+        '<figure><img id="weatherSymbol" src="http://openweathermap.org/img/w/' + data.weather[0].icon + '.png" alt="The weather : ' + data.weather[0].main + '"></figure>' +
+        '</div>');
+    }).catch(err => {
+      // Do something for an error here
+      console.log('There was an error ...');
+    });
+  }); // document ready end
+  </script>
+
+</body>
+
+</html>
